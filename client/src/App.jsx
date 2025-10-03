@@ -22,7 +22,7 @@ function App() {
     return (
         <>
             <h1>Мои задачи</h1>
-            <TodoList todolist={todolist}/>
+            <TodoList todolist={todolist} updateTodoList={updateTodoList}/>
             <br/>
             <AddTodoItem updateTodoList={updateTodoList}/>
         </>

@@ -7,21 +7,23 @@ export const AddTodoItem = ({updateTodoList}) => {
         e.preventDefault();
 
         try {
-         const response = (await fetch('http://localhost:3002/api/todos/add', {
+         const res = await fetch('http://localhost:3002/api/todos/add', {
              method: 'POST',
              headers: {
                  'Accept': 'application/json',
                  'Content-Type': 'application/json'
              },
              body: JSON.stringify({
-                 title: title
+                 title
              })
-         })).json()
-            if (response.status !==200) {
-                console.log();
-                alert(response.body.message)
+         })
+            if (res.status !==200) {
+                const json = await res.json()
+                    alert(json.message)
                 return
             }
+            updateTodoList()
+            setTitle('')
 
         } catch (err) {
             console.log(err);
