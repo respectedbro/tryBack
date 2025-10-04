@@ -21,13 +21,14 @@ export const useApi = () => {
                 config.body = JSON.stringify(body);
             }
 
-            const response = await fetch(url, config);
+            const res = await fetch(url, config);
 
-            if (!response.ok) {
-                const err = await response.json();
-                throw new Error(err.message);
+            if (res.status !== 200) {
+                const json = await res.json();
+                alert(json.message);
+                return;
             }
-            return await response.json();
+            return await res.json();
         } catch (err) {
             console.log(err);
             throw err;
