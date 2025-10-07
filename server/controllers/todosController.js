@@ -17,7 +17,6 @@ class TodosController {
         try {
             if (!req.body.title) {
                 return res.status(400).json({message: 'Пожалуйста добавьте заголовок'});
-
             }
 
             const todoModel = new TodosModel({title: req.body.title});
@@ -32,6 +31,9 @@ class TodosController {
 
     async editTodo(req, res) {
         try {
+            if (!req.body.id || !req.body.title) {
+                return res.status(400).json({ message: 'Отсутствует id или заголовок' });
+            }
 
             await TodosModel.findByIdAndUpdate(req.body.id, {
                 title: req.body.title
@@ -47,7 +49,7 @@ class TodosController {
     async deleteTodo(req, res) {
         try {
             if (!req.body.title) {
-                res.status(400).json({message: 'Пожалуйста укажите заголовок'});
+               return res.status(400).json({message: 'Пожалуйста укажите заголовок'});
             }
 
             const {deletedCount} = await TodosModel.deleteOne({
